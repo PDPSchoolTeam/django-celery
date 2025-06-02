@@ -17,3 +17,5 @@ def divide(x, y):
     import time
     time.sleep(10)
     return x / y
+
+# https://testdriven.io/courses/django-celery/getting-started/
