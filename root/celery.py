@@ -1,23 +1,25 @@
 import os
 from celery import Celery
+from django.conf import settings
 
-app = Celery('root')
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'root.settings')
+
+app = Celery('root')
 
 # Konfiguratsiyani django settings.py dan olib kelish # noqa
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Avtomatik tasklarni topish # noqa
-app.autodiscover_tasks()
+app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
-quotes = [
-    "💪 Bugun kuchli bo‘l, ertangi kun g‘alaba sen bilan!", # noqa
-    "🚀 Harakat qilgan odam, oxir-oqibat muvaffaqiyatga erishadi!", # noqa
-    "🌟 Orzularingiz uchun kurashing, siz bunga loyiqsiz!", # noqa
-    "🔥 Har kun — yangi imkoniyat. Qani boshladik!", # noqa
-    "🎯 Maqsadingiz yo‘lidagi har bir qadam — g‘alabaga yaqinlashishdir!" # noqa
-]
+# quotes = [
+#     "💪 Bugun kuchli bo‘l, ertangi kun g‘alaba sen bilan!", # noqa
+#     "🚀 Harakat qilgan odam, oxir-oqibat muvaffaqiyatga erishadi!", # noqa
+#     "🌟 Orzularingiz uchun kurashing, siz bunga loyiqsiz!", # noqa
+#     "🔥 Har kun — yangi imkoniyat. Qani boshladik!", # noqa
+#     "🎯 Maqsadingiz yo‘lidagi har bir qadam — g‘alabaga yaqinlashishdir!" # noqa
+# ]
 
 # @app.task
 # def send(user_id: int):
